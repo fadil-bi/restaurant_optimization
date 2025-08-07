@@ -2,7 +2,7 @@
 
 import numpy as np
 
-class ThresholdedClassifier:
+class ThresholdClassifier:
     """
     A wrapper for classifiers that allows setting a custom decision threshold
     for binary classification.
