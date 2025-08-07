@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from model_utils import ThresholdedClassifier
+from model_utils import ThresholdClassifier
 import joblib 
 
 # Load the saved model
