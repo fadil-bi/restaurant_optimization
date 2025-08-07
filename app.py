@@ -37,7 +37,7 @@ if submit:
     
     input_data = {
         'calories': calories,
-        'carbohydrate': carbs,
+        'carbohydrate': carbohydrate,
         'sugar': sugar,
         'protein': protein,
         'servings': servings,
