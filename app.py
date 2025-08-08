@@ -21,7 +21,7 @@ with st.form("prediction_form"):
     sugar = st.number_input("Sugar (g)", min_value=0.0, step=1.0)
     protein = st.number_input("Protein (g)", min_value=0.0, step=1.0)
     servings = st.number_input("Servings", min_value=1, step=1)
-
+    
     category = st.selectbox("Recipe Category", [
         'Dessert', 'Pork', 'Potato', 'Breakfast', 'Beverages', 
         'One Dish Meal', 'Chicken', 'Lunch/Snacks', 'Vegetable', 'Meat',
@@ -31,12 +31,7 @@ with st.form("prediction_form"):
 
 # Preprocess the input
 if submit:
-    # Manual encoding for example
-    categories = ['Dessert', 'Pork', 'Potato', 'Breakfast', 'Beverages', 
-                  'One Dish Meal', 'Chicken', 'Lunch/Snacks', 'Vegetable', 'Meat']
-    category_encoded = {f"category_{cat}": int(cat == category) for cat in categories}
-    
-    # Safely calculate calorie_portion
+    # Calculate calories per portion
     calorie_portion = calories / servings if servings > 0 else 0.0
 
     input_data = {
@@ -46,16 +41,12 @@ if submit:
         'protein': protein,
         'servings': servings,
         'calorie_portion': calorie_portion,
-        **category_encoded
+        'category': category  # NOTE: pass raw, let model handle encoding
     }
 
-    # Align with model features
     df_input = pd.DataFrame([input_data])
-
-    # DEBUG: check input shape (optional)
-    # st.write("Model input:", df_input)
-
-    # Make prediction
+    
+    # Prediction
     prediction = model.predict(df_input)[0]
 
     if prediction == 1:
